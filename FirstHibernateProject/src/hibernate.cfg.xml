@@ -30,6 +30,7 @@
 		
 		<!-- Names the annotated entity class -->
 		<mapping class="model.Marka"/>
+		<mapping class="model.User"/>
 	
 	</session-factory>
 </hibernate-configuration>
