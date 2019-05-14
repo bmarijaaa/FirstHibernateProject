@@ -39,21 +39,44 @@ public class GlavnaKlasa {
 			
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 		
+		List<Adresa> listaAdresa = new ArrayList<Adresa>();
+		
 		User user = new User();
-		int brojAdresa = 0;
+		Marka marka = new Marka();
+		Adresa adresa = new Adresa();
+		
+			adresa.setZemlja("Srbija");
+			adresa.setGrad("Beograd");
+			adresa.setUlica("Moja ulica");
+			
+			marka.setNazivMarke("ferari");
+			marka.setAdresa(adresa);
+			
+			user.setIme("Pera");
+			user.setPrezime("Peric");
+			listaAdresa.add(adresa);
+			user.setListaAdresa(listaAdresa);
+			user.setMarka(marka);
+		
 		Session sesija = sf.openSession();
 		sesija.beginTransaction();
 			try {
-					user = sesija.get(User.class, 1);
-					brojAdresa = user.getListaAdresa().size();
+				sesija.save(user);
+				sesija.save(marka);
 				sesija.getTransaction().commit();
 			} catch (Exception e) {
 				sesija.getTransaction().rollback();
 			}finally {
 				sesija.close();
 			}
-			System.out.println(user.getIme());
-			System.out.println(brojAdresa);
+			
+			
+			
+			
+			
+			
+			
+		
 			
 		
 	}

@@ -9,14 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "moja_tabela_marki")
 public class Marka {
 	
-	@Id // PK	
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-	@Column(name = "id_marke")
+	@Id 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int idMarke;
-	@Column(name = "pera")
 	private String nazivMarke;
 	@Embedded
 	private Adresa adresa;

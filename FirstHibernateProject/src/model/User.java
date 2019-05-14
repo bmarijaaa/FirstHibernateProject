@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -20,6 +21,8 @@ public class User {
 		private String prezime;
 		@ElementCollection(fetch = FetchType.LAZY)
 		private List<Adresa> listaAdresa = new ArrayList<Adresa>();
+		@OneToOne // ovo je FK za marku
+		private Marka marka; // ovo je FK za marku
 
 		public int getIdUser() {
 			return idUser;
@@ -51,6 +54,14 @@ public class User {
 
 		public void setListaAdresa(List<Adresa> listaAdresa) {
 			this.listaAdresa = listaAdresa;
+		}
+
+		public Marka getMarka() {
+			return marka;
+		}
+
+		public void setMarka(Marka marka) {
+			this.marka = marka;
 		}
 		
 		
