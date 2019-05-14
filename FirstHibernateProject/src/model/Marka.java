@@ -1,12 +1,11 @@
 package model;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Marka {
@@ -17,6 +16,8 @@ public class Marka {
 	private String nazivMarke;
 	@Embedded
 	private Adresa adresa;
+	@ManyToOne
+	private User user;
 	
 	public int getIdMarke() {
 		return idMarke;
@@ -35,6 +36,12 @@ public class Marka {
 	}
 	public void setAdresa(Adresa adresa) {
 		this.adresa = adresa;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	

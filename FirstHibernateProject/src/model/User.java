@@ -9,7 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class User {
@@ -19,11 +20,15 @@ public class User {
 		private int idUser;
 		private String ime;
 		private String prezime;
+		
 		@ElementCollection(fetch = FetchType.LAZY)
 		private List<Adresa> listaAdresa = new ArrayList<Adresa>();
-		@OneToOne // ovo je FK za marku
-		private Marka marka; // ovo je FK za marku
-
+		
+		@OneToMany
+		private List<Marka> marke = new ArrayList<Marka>();
+		 
+		
+		
 		public int getIdUser() {
 			return idUser;
 		}
@@ -56,15 +61,13 @@ public class User {
 			this.listaAdresa = listaAdresa;
 		}
 
-		public Marka getMarka() {
-			return marka;
+		public List<Marka> getMarke() {
+			return marke;
 		}
 
-		public void setMarka(Marka marka) {
-			this.marka = marka;
+		public void setMarke(List<Marka> marke) {
+			this.marke = marke;
 		}
 		
-		
-		
-		
+	
 }
