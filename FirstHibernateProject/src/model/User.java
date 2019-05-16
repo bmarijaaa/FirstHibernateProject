@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,10 +25,8 @@ public class User {
 		@ElementCollection(fetch = FetchType.LAZY)
 		private List<Adresa> listaAdresa = new ArrayList<Adresa>();
 		
-		@OneToMany
+		@OneToMany(cascade=CascadeType.ALL)
 		private List<Marka> marke = new ArrayList<Marka>();
-		 
-		
 		
 		public int getIdUser() {
 			return idUser;
