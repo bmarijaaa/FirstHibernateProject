@@ -54,9 +54,9 @@ public class GlavnaKlasa {
 		Session sesija = sf.openSession();
 		sesija.beginTransaction();
 			try {
-				sesija.save(user);
-				sesija.save(administrator);
-				sesija.save(operater);
+				sesija.persist(user);
+				sesija.persist(administrator);
+				sesija.persist(operater);
 				sesija.getTransaction().commit();
 			} catch (Exception e) {
 				sesija.getTransaction().rollback();
