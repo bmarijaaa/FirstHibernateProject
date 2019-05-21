@@ -29,8 +29,9 @@
 		<property name="hbm2ddl.auto">create</property>
 		
 		<!-- Names the annotated entity class -->
-		<mapping class="model.Marka"/>
+		
 		<mapping class="model.User"/>
-	
+		<mapping class="model.Operater"/>
+		<mapping class="model.Administrator"/>
 	</session-factory>
 </hibernate-configuration>

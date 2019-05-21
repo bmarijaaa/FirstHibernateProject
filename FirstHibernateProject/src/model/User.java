@@ -10,11 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 		
 		@Id
@@ -23,52 +26,27 @@ public class User {
 		private String ime;
 		private String prezime;
 		
-		@ElementCollection(fetch = FetchType.LAZY)
-		private List<Adresa> listaAdresa = new ArrayList<Adresa>();
-		
-		//@ManyToMany(mappedBy="listaUsera")
-		@ManyToMany
-		private List<Marka> marke = new ArrayList<Marka>();
-		
 		public int getIdUser() {
 			return idUser;
 		}
-
 		public void setIdUser(int idUser) {
 			this.idUser = idUser;
 		}
-
 		public String getIme() {
 			return ime;
 		}
-
 		public void setIme(String ime) {
 			this.ime = ime;
 		}
-
 		public String getPrezime() {
 			return prezime;
 		}
-
 		public void setPrezime(String prezime) {
 			this.prezime = prezime;
 		}
-
-		public List<Adresa> getListaAdresa() {
-			return listaAdresa;
-		}
-
-		public void setListaAdresa(List<Adresa> listaAdresa) {
-			this.listaAdresa = listaAdresa;
-		}
-
-		public List<Marka> getMarke() {
-			return marke;
-		}
-
-		public void setMarke(List<Marka> marke) {
-			this.marke = marke;
-		}
 		
-	
+		
+			
+		
+		
 }
