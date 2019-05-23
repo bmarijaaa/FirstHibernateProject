@@ -15,48 +15,20 @@ public class GlavnaKlasa {
 	public static void main(String[] args) {
 	
 		
-		CrudMetode metode = new CrudMetode();
-			
-/*			metode.ubaciMarku("Moskvic", "SSSR", "Moskva", "KGB");
-			
-			List<Adresa> listaAdresa = new ArrayList<Adresa>();
-			
-			Adresa adresa1 = new Adresa();
-				adresa1.setZemlja("Srbija");
-				adresa1.setGrad("Beograd");
-				adresa1.setUlica("Knez Mihajlova");
-		
-			listaAdresa.add(adresa1);
-			
-			Adresa adresa2 = new Adresa();
-			adresa2.setZemlja("Srbija");
-			adresa2.setGrad("Nis");
-			adresa2.setUlica("Beogradska");
-			
-			listaAdresa.add(adresa2);
-			
-			metode.ubaciUsera("Pera", "Peric", listaAdresa);*/
+		//CrudMetode metode = new CrudMetode();
+
 			
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
-		
 		User user = new User();
-			user.setIme("Marko");
-			user.setPrezime("UPrezime");
-		Administrator administrator = new Administrator();
-			administrator.setIme("Pera");
-			administrator.setBanujOperatera("Necu da banujem");
-		Operater operater = new Operater();
-			operater.setIme("Olivera");
-			operater.setPozicija("telefonski operater");
-		
 		
 		Session sesija = sf.openSession();
 		sesija.beginTransaction();
 			try {
-				sesija.persist(user);
-				sesija.persist(administrator);
-				sesija.persist(operater);
+	
+				user = sesija.get(User.class, 84);
+					user.setPrezime("Petrovic");
+				sesija.update(user);
 				sesija.getTransaction().commit();
 			} catch (Exception e) {
 				sesija.getTransaction().rollback();
