@@ -1,14 +1,11 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -18,17 +15,10 @@ public class Marka {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int idMarke;
 	private String nazivMarke;
-	@Embedded
-	private Adresa adresa;
-	@ManyToMany(mappedBy="marke")
-	private List<User> listaUsera = new ArrayList<User>();
+	@ManyToOne
+	private User user;
 	
-	public List<User> getListaUsera() {
-		return listaUsera;
-	}
-	public void setListaUsera(List<User> listaUsera) {
-		this.listaUsera = listaUsera;
-	}
+	
 	public int getIdMarke() {
 		return idMarke;
 	}
@@ -41,11 +31,14 @@ public class Marka {
 	public void setNazivMarke(String nazivMarke) {
 		this.nazivMarke = nazivMarke;
 	}
-	public Adresa getAdresa() {
-		return adresa;
+	public User getUser() {
+		return user;
 	}
-	public void setAdresa(Adresa adresa) {
-		this.adresa = adresa;
+	public void setUser(User user) {
+		this.user = user;
 	}
+	
+	
+
 
 }

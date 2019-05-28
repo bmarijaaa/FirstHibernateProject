@@ -14,39 +14,80 @@ public class CrudMetode {
 	
 	private SessionFactory sf = new Configuration().configure().buildSessionFactory();
 	
-	public void ubaciMarku(String nazivMarke, String zemlja, String grad, String ulica) {
+	public boolean ubaciMarku(String nazivMarke) {
 		
-		Adresa adresa = new Adresa();
-			adresa.setZemlja(zemlja);
-			adresa.setGrad(grad);
-			adresa.setUlica(ulica);
-			
 		Marka marka = new Marka();
-			marka.setNazivMarke(nazivMarke);
-			marka.setAdresa(adresa);
-		
+		marka.setNazivMarke(nazivMarke);
+	
 		Session sesija = sf.openSession();
 		sesija.beginTransaction();
 		try {
 			sesija.save(marka);
 			sesija.getTransaction().commit();	
 			System.out.println("Uspesno ubacena marka");
+			return true;
 		} catch (Exception e) {
 			sesija.getTransaction().rollback();
-			System.out.println("Nije ubacio");
+			System.out.println("Nije ubacio marku");
+			return false;
 		}finally {
 			sesija.close();
 		}
 	}
 	
 	
-	public Marka vratiMarku(int idMarke) {
+	
+	public boolean ubaciUsera(String ime) {
 		
-		Marka marka = null;
+		User user = new User();
+			user.setIme(ime);
 		Session sesija = sf.openSession();
 			sesija.beginTransaction();
+		try {
+			sesija.save(user);
+			sesija.getTransaction().commit();
+			System.out.println("Uspesno ubacen user");
+			return true;
+		} catch (Exception e) {
+			sesija.getTransaction().rollback();
+			System.out.println("Neuspesno ubacen user");
+			return false;
+		}finally {
+			sesija.close();
+		}
+		
+	}
+	
+	public User vratiUsera(int idUser) {
+		
+		User user = new User();
+		
+		Session sesija = sf.openSession();
+		sesija.beginTransaction();
 			try {
-				marka = sesija.get(Marka.class,idMarke);
+				user = sesija.get(User.class, idUser);
+				sesija.getTransaction().commit();
+				System.out.println("Uspesno ubacen user");
+				return user;
+			} catch (Exception e) {
+				sesija.getTransaction().rollback();
+				System.out.println("Neuspesno ubacen user");
+				return null;
+			}finally {
+				sesija.close();
+			}
+		
+	}
+	
+	
+	public Marka vratiMarku(int idMarka) {
+		
+		Marka marka = new Marka();
+		
+		Session sesija = sf.openSession();
+		sesija.beginTransaction();
+			try {
+				marka = sesija.get(Marka.class, idMarka);
 				sesija.getTransaction().commit();
 				return marka;
 			} catch (Exception e) {
@@ -57,26 +98,17 @@ public class CrudMetode {
 			}
 	}
 	
-	
-	
-	public boolean azurirajZemlju(int idMarke, String zemlja) {
+	public boolean dodajMarkuUseru(Marka marka, User user) {
 		
-		Marka marka =vratiMarku(idMarke);
-		
+		marka.setUser(user);
+		user.getListaMarki().add(marka);
 		Session sesija = sf.openSession();
-			sesija.beginTransaction();
+		sesija.beginTransaction();
 			try {
-					if(marka != null) {
-						marka.getAdresa().setZemlja(zemlja);
-						sesija.update(marka);
-						System.out.println("Update uspeo");
-						sesija.getTransaction().commit();
-						return true;
-					}else {
-						System.out.println("Nije uspeo update");
-						sesija.getTransaction().commit();
-						return false;
-					}
+				sesija.update(user);
+				sesija.update(marka);
+				sesija.getTransaction().commit();
+				return true;
 			} catch (Exception e) {
 				sesija.getTransaction().rollback();
 				return false;
@@ -84,57 +116,10 @@ public class CrudMetode {
 				sesija.close();
 			}
 		
-	}
-	
-	public boolean obrisiMarku(int idMarke) {
-		
-		Marka marka =vratiMarku(idMarke);
-		
-		Session sesija = sf.openSession();
-			sesija.beginTransaction();
-			try {
-					if(marka != null) {
-						sesija.delete(marka);
-						System.out.println("delete uspeo");
-						sesija.getTransaction().commit();
-						return true;
-					}else {
-						System.out.println("Nije uspeo delete");
-						sesija.getTransaction().commit();
-						return false;
-					}
-			} catch (Exception e) {
-				sesija.getTransaction().rollback();
-				return false;
-			}finally {
-				sesija.close();
-			}
 		
 	}
 	
 	
-	
-	public void ubaciUsera(String ime, String prezime, List<Adresa> listaAdresa) {
-		
-		User user = new User();
-			user.setIme(ime);
-			user.setPrezime(prezime);
-			//user.setListaAdresa(listaAdresa);
-			
-		Session sesija = sf.openSession();
-			sesija.beginTransaction();
-		try {
-			
-				sesija.save(user);
-			
-			sesija.getTransaction().commit();
-		} catch (Exception e) {
-			sesija.getTransaction().rollback();
-		}finally {
-			sesija.close();
-		}
-		
-	}
 	
 	
 	
