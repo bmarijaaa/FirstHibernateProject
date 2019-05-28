@@ -1,5 +1,6 @@
 package bussinesService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -66,12 +67,13 @@ public class CrudMetode {
 		sesija.beginTransaction();
 			try {
 				user = sesija.get(User.class, idUser);
+			
 				sesija.getTransaction().commit();
-				System.out.println("Uspesno ubacen user");
+				System.out.println("Uspesno preuzet user");
 				return user;
 			} catch (Exception e) {
 				sesija.getTransaction().rollback();
-				System.out.println("Neuspesno ubacen user");
+				System.out.println("Neuspesno preuzet user");
 				return null;
 			}finally {
 				sesija.close();
